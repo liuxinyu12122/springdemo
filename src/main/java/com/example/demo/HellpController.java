@@ -24,7 +24,7 @@ public class HellpController {
         return "index";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/login2")
     public String login() {
         return "login";
     }
