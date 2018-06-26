@@ -23,7 +23,7 @@ public class HttpBasicSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers( "/hello").permitAll()
+                .antMatchers( "/","/hello").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -31,7 +31,7 @@ public class HttpBasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("")
+                .logoutSuccessUrl("/")//为空会报错
                 .permitAll();
     }
 

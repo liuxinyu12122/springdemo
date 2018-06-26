@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @Date 创建于 18-5-30 上午9:53
  */
 @Controller
-public class HellpController {
+public class HelloController {
 
     @RequestMapping("/hello")
-    public String sayHello(){
-        return "hello";
+    public String sayHello() throws Exception {
+        throw new Exception("hhahah");
+       // return "hello";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
