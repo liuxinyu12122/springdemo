@@ -30,4 +30,11 @@ public class HelloController {
         return "login";
     }
 
+
+    @RequestMapping("/set/{@value1}")
+    public String set() {
+
+        return "login";
+    }
+
 }

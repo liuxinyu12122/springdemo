@@ -1,14 +1,18 @@
 package com.example;
 
 import jdk.nashorn.internal.runtime.logging.Logger;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+//exclude = {DataSourceAutoConfiguration.class}
+@SpringBootApplication()
 @ComponentScan({"com.example.*"})
+@MapperScan({"com.example.dao.mapper"})
+@EnableScheduling
 @Logger
 public class SpringdemoApplication extends AbstractAnnotationConfigDispatcherServletInitializer {
 
