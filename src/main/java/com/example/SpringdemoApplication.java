@@ -2,38 +2,34 @@ package com.example;
 
 import jdk.nashorn.internal.runtime.logging.Logger;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 //exclude = {DataSourceAutoConfiguration.class}
 @SpringBootApplication()
 @ComponentScan({"com.example.*"})
 @MapperScan({"com.example.dao.mapper"})
-@EnableScheduling
+//@EnableScheduling
+@EnableCaching
 @Logger
-public class SpringdemoApplication extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class SpringdemoApplication {
+	private org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringdemoApplication.class, args);
 	}
 
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[0];
-//		return
-//				new  Class[] { WebSecurityConfig.class};
-	}
 
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[0];
-	}
-
-	@Override
-	protected String[] getServletMappings() {
-		return new String[0];
+	@RequestMapping(value = "/getLogLevel", method = RequestMethod.GET)
+	public String testLogLevel() {
+		logger.debug("Logger Level ：DEBUG");
+		logger.info("Logger Level ：INFO");
+		logger.error("Logger Level ：ERROR");
+		return "";
 	}
 }

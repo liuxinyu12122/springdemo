@@ -2,6 +2,7 @@ package com.example.dao.mapper;
 
 import com.example.entity.User;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public interface UserMapper {
 
-    @Select("select * from users")
+    @Cacheable(key = "users2")
+    @Select("select * from users2")
     public List<User> selectUsers();
 }

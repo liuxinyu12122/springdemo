@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author 刘心宇
- * @Description
+ * @Description 异常统一处理
  * @Date 创建于 18-6-26 下午12:46
  */
 @ControllerAdvice
