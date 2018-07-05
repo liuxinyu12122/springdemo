@@ -3,6 +3,7 @@ package com.example.core;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
@@ -41,21 +43,36 @@ public class HttpBasicSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("lxy")
-                        .password("123")
-                        .roles("USER","ADMIN")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
+    public UserDetailsService cutomerUserService() {
+        //内存用户
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                        .username("lxy")
+//                        .password("123")
+//                        .roles("USER","ADMIN")
+//                        .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+        //数据库用户
+        return new CutomerUserService();
     }
 
-//    @Autowired
-//    public  void configureGloabal(AuthenticationManagerBuilder auth) throws Exception{
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new CustomerPasswordEncoder();
+    }
+
+    @Autowired
+    public  void configureGloabal(AuthenticationManagerBuilder auth) throws Exception{
+        //JDBC方式
 //        auth.jdbcAuthentication().dataSource(dataSource);
-////                .withUser("cjm").password("123").roles("USER","ADMIN");
-//    }
+        //自定义方式
+        auth.userDetailsService(cutomerUserService()).passwordEncoder(passwordEncoder());
+//                .withUser("cjm").password("123").roles("USER","ADMIN");
+    }
+
+
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 }

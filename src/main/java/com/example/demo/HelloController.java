@@ -15,8 +15,8 @@ public class HelloController {
 
     @RequestMapping("/hello")
     public String sayHello() throws Exception {
-        throw new Exception("hhahah");
-       // return "hello";
+//        throw new Exception("hhahah");
+        return "hello";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
