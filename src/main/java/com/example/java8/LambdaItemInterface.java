@@ -5,6 +5,7 @@ package com.example.java8;
  * @Description
  * @Date 创建于 18-6-13 下午2:50
  */
+@FunctionalInterface
 public interface LambdaItemInterface {
     int doMathOperator(int start, int plusValue);
 
